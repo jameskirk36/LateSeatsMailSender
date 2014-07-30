@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LateSeatsMailSender;
 using NUnit.Framework;
 
 namespace LateSeatsMailSenderTests
@@ -12,20 +11,17 @@ namespace LateSeatsMailSenderTests
     public class Tests
     {
         [Test]
-        public void ReceivesEventSendsEmail()
-
+        public void ReceivesJSONSendsEmail()
         {
             var fakeMailClient = new FakeMailClient();
-            var json = CreateTestJSON();
-
             var mailSender = new MailSender();
-            mailSender.SendMail(json, fakeMailClient);
+            mailSender.SendMail(CreateTestJSON(), fakeMailClient);
 
-            Assert.That(fakeMailClient.MailAddress, Is.EqualTo("joe@laterooms.com"));
-
+            Assert.That(fakeMailClient.MailTo, Is.EqualTo("joe@laterooms.com"));
+            Assert.That(fakeMailClient.MailFrom, Is.EqualTo("lateseatalerts@laterooms.com"));
+            Assert.That(fakeMailClient.MailSubject, Is.EqualTo("Your LateSeat Alerts"));
+            Assert.That(fakeMailClient.MailBody, Is.EqualTo("Hi Joe"));
         }
-
-        
 
         private static string CreateTestJSON()
         {
@@ -49,15 +45,6 @@ namespace LateSeatsMailSenderTests
 		            }
 	            ]
             }";
-        }
-    }
-
-    public class FakeMailClient : IMailClient
-    {
-        public string MailAddress { get; set; }
-        public void SendMail(string email)
-        {
-            MailAddress = email;
         }
     }
 }

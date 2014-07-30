@@ -8,6 +8,6 @@ namespace LateSeatsMailSender
 {
     public interface IMailClient
     {
-        void SendMail(string email);
+        void SendMail(string mailTo, string mailFrom, string mailSubject, string body);
     }
 }
