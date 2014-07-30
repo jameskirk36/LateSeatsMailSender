@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using LateSeatsMailSender;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace LateSeatsMailSenderTests
+namespace LateSeatsMailSender
 {
     public class Watchlist
     {
