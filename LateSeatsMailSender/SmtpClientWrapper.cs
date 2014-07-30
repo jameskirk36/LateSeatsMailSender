@@ -15,5 +15,10 @@ namespace LateSeatsMailSender
         {
             _mailClient.Send(new MailMessage(mailFrom, mailTo, mailSubject, body));
         }
+
+        public void SendMail(MailMessage mailTo)
+        {
+            _mailClient.Send(mailTo);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net.Mail;
+using Newtonsoft.Json;
 
 namespace LateSeatsMailSender
 {
@@ -11,7 +12,16 @@ namespace LateSeatsMailSender
         {
             var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
             var body = CreateBody(watchlist);
-            mailClient.SendMail(watchlist.email, _from, _subject, body);
+            var mail = CreateMailWithAttachment(watchlist, body);
+            
+            mailClient.SendMail(mail);
+        }
+
+        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body)
+        {
+            var mail = new MailMessage(_from, watchlist.email, _subject, body);
+            mail.Attachments.Add(new Attachment("form1.docx"));
+            return mail;
         }
 
         private static string CreateBody(Watchlist watchlist)

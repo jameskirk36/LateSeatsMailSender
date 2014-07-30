@@ -19,6 +19,9 @@ namespace LateSeatsMailSenderTests
             Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
             Assert.That(fakeMailClient.MailMessage.Subject, Is.EqualTo("Your LateSeat Alerts"));
             Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo("Hi Joe"));
+
+            Assert.True(fakeMailClient.MailMessage.Attachments.Count == 1);
+            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("form1.docx"));
         }
 
         private static string CreateTestJSON()

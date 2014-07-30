@@ -23,5 +23,9 @@ namespace LateSeatsMailSenderTests
             _mailMessage = new MailMessage(mailFrom, mailTo, mailSubject, body);
         }
 
+        public void SendMail(MailMessage mail)
+        {
+            _mailMessage = mail;
+        }
     }
 }
