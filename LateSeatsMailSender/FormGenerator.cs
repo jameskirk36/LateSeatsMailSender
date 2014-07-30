@@ -39,7 +39,39 @@ namespace LateSeatsMailSender
 
         private static void PopulateTable(WordprocessingDocument wordDoc, Watchlist watchlist)
         {
+            PopulateDepartureDate(wordDoc, watchlist.DepartureDate);
             PopulateDepartureAirport(wordDoc, watchlist.DepartureAirport);
+            PopulateArrivalAirport(wordDoc, watchlist.ArrivalAirport);
+            PopulateDepartureTime(wordDoc, watchlist.DepartureTime);
+            PopulateReturnDate(wordDoc, watchlist.ReturnDate);
+            PopulateReturnTime(wordDoc, watchlist.ReturnTime);
+        }
+
+        private static void PopulateReturnTime(WordprocessingDocument wordDoc, string returnTime)
+        {
+            ChangeTextInCell(wordDoc, 7, 1, returnTime);
+        }
+
+        private static void PopulateReturnDate(WordprocessingDocument wordDoc, string returnDate)
+        {
+            ChangeTextInCell(wordDoc, 6, 1, returnDate);
+        }
+
+        private static void PopulateDepartureTime(WordprocessingDocument wordDoc, string departureTime)
+        {
+            ChangeTextInCell(wordDoc, 5, 1, departureTime);
+        }
+
+        private static void PopulateArrivalAirport(WordprocessingDocument wordDoc, string arrivalAirport)
+        {
+            ChangeTextInCell(wordDoc, 4, 1, arrivalAirport);
+
+        }
+
+        private static void PopulateDepartureDate(WordprocessingDocument wordDoc, string departureDate)
+        {
+            ChangeTextInCell(wordDoc, 2, 1, departureDate);
+
         }
 
         private static void PopulateDepartureAirport(WordprocessingDocument wordDoc, string departureAirport)

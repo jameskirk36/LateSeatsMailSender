@@ -40,6 +40,7 @@ namespace LateSeatsMailSenderTests
 			            ""departure_date"" : ""2014-07-31T10:00:00"",
 			            ""arrival_date"" : ""2014-07-31T13:30:00"",
 			            ""flight_number"" : ""TOM1234"",
+                        ""return_date"":""2014-08-31T10:00:00"",
 		            }
 	            ]
             }";
@@ -51,6 +52,7 @@ namespace LateSeatsMailSenderTests
         public void OpenXMLTest()
         {
             var watchlist = JsonConvert.DeserializeObject<Watchlist>(CreateTestJSON());
+            
             FormGenerator.GenerateForm(watchlist);
         }
     }
