@@ -29,6 +29,42 @@ namespace LateSeatsMailSender
         public Airport destination_airport;
         public DateTime departure_date;
         public DateTime return_date;
+
+        public string DepartureAirport
+        {
+            get { return departure_airport.name; }
+            private set { }
+        }
+
+        public string DepartureDate
+        {
+            get { return departure_date.ToShortDateString(); }
+            private set { }
+        }
+
+        public string ArrivalAirport
+        {
+            get { return destination_airport.name; }
+            private set { }
+        }
+
+        public string DepartureTime
+        {
+            get { return departure_date.TimeOfDay.ToString(); }
+            private set { }
+        }
+
+        public string ReturnDate
+        {
+            get { return return_date.ToShortDateString(); }
+            private set { }
+        }
+
+        public string ReturnTime
+        {
+            get { return return_date.TimeOfDay.ToString(); }
+            private set { }
+        }
     }
     public class Watchlist
     {
@@ -36,40 +72,16 @@ namespace LateSeatsMailSender
         public string email;
         public Flight[] flights;
 
-        public string DepartureAirport
+        public Flight FirstFlight
         {
-            get { return flights[0].departure_airport.name; }
-            private set { } 
-        }
-
-        public string DepartureDate
-        {
-            get { return flights[0].departure_date.ToShortDateString(); }
-            private set { } 
-        }
-
-        public string ArrivalAirport
-        {
-            get { return flights[0].destination_airport.name; }
-            private set { } 
-        }
-
-        public string DepartureTime
-        {
-            get { return flights[0].departure_date.TimeOfDay.ToString(); }
-            private set { } 
-        }
-
-        public string ReturnDate
-        {
-            get { return flights[0].return_date.ToShortDateString(); }
-            private set { } 
-        }
-
-        public string ReturnTime
-        {
-            get { return flights[0].return_date.TimeOfDay.ToString(); }
-            private set { } 
+            get
+            {
+                return flights[0];
+            }
+            set
+            {
+                
+            }
         }
     }
 }

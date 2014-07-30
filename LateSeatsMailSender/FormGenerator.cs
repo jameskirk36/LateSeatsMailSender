@@ -39,12 +39,12 @@ namespace LateSeatsMailSender
 
         private static void PopulateTable(WordprocessingDocument wordDoc, Watchlist watchlist)
         {
-            PopulateDepartureDate(wordDoc, watchlist.DepartureDate);
-            PopulateDepartureAirport(wordDoc, watchlist.DepartureAirport);
-            PopulateArrivalAirport(wordDoc, watchlist.ArrivalAirport);
-            PopulateDepartureTime(wordDoc, watchlist.DepartureTime);
-            PopulateReturnDate(wordDoc, watchlist.ReturnDate);
-            PopulateReturnTime(wordDoc, watchlist.ReturnTime);
+            PopulateDepartureDate(wordDoc, watchlist.FirstFlight.DepartureDate);
+            PopulateDepartureAirport(wordDoc, watchlist.FirstFlight.DepartureAirport);
+            PopulateArrivalAirport(wordDoc, watchlist.FirstFlight.ArrivalAirport);
+            PopulateDepartureTime(wordDoc, watchlist.FirstFlight.DepartureTime);
+            PopulateReturnDate(wordDoc, watchlist.FirstFlight.ReturnDate);
+            PopulateReturnTime(wordDoc, watchlist.FirstFlight.ReturnTime);
         }
 
         private static void PopulateReturnTime(WordprocessingDocument wordDoc, string returnTime)
