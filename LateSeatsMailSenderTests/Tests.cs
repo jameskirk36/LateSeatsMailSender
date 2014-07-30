@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LateSeatsMailSender;
+﻿using LateSeatsMailSender;
 using NUnit.Framework;
 
 namespace LateSeatsMailSenderTests
@@ -47,5 +42,13 @@ namespace LateSeatsMailSenderTests
 	            ]
             }";
         }
+
+
+      
+        //[Test]
+        //public void OpenXMLTest()
+        //{
+        //    FormGenerator.GenerateForm();
+        //}
     }
 }
