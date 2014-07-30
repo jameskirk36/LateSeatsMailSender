@@ -2,7 +2,7 @@
 
 namespace LateSeatsMailSender
 {
-    internal class SmtpClientWrapper : IMailClient
+    public class SmtpClientWrapper : IMailClient
     {
         private readonly SmtpClient _mailClient;
 

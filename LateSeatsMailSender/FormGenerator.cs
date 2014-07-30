@@ -17,8 +17,8 @@ namespace LateSeatsMailSender
     {
         public static void GenerateForm(Watchlist watchlist)
         {
-            string sourceFile = @"Templates\Lates_Request_Form_Template.docx";
-            string destinationFile = "form1.docx";
+            string sourceFile = @"C:\temp\Lates_Request_Form_Template.docx";
+            string destinationFile = @"C:\temp\request_form.docx";
 
             if (File.Exists(destinationFile))
             {

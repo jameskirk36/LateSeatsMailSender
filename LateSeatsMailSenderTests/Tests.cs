@@ -7,6 +7,19 @@ namespace LateSeatsMailSenderTests
     [TestFixture]
     public class Tests
     {
+        private string _body = @"
+Yo james kirk, 
+
+Here are your flight details:
+
+Outbound Flight: 31/07/2014 10:00:00 from Manchester Airport
+
+Return Flight: 31/08/2014 10:00:00 from Palma Mallorca Airport
+
+Thanks, 
+The Late Seats Finder Team 
+";
+
         [Test]
         public void ReceivesJSONSendsEmail()
         {
@@ -15,21 +28,21 @@ namespace LateSeatsMailSenderTests
 
             mailSender.SendMail(CreateTestJSON(), fakeMailClient);
 
-            Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("joe@laterooms.com"));
+            Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
             Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
-            Assert.That(fakeMailClient.MailMessage.Subject, Is.EqualTo("Your LateSeat Alerts"));
-            Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo("Hi Joe"));
+            Assert.That(fakeMailClient.MailMessage.Subject, Is.EqualTo("Your late seat can be booked!"));
+            Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo(_body));
 
             Assert.True(fakeMailClient.MailMessage.Attachments.Count == 1);
-            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("form1.docx"));
+            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("request_form.docx"));
         }
 
         private static string CreateTestJSON()
         {
             return @"
             {
-	            ""name"": ""joe bloggs"",
-	            ""email"": ""joe@laterooms.com"",
+	            ""name"": ""james kirk"",
+	            ""email"": ""james.kirk@laterooms.com"",
 	            ""flights"": [
 		            {
 			            ""departure_airport"" : {

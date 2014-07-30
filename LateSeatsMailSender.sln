@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateSeatsMailSender", "Late
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateSeatsMailSenderTests", "LateSeatsMailSenderTests\LateSeatsMailSenderTests.csproj", "{AA7FA16F-16ED-4AD5-A542-B482B4918993}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormWebThingy", "FormWebThingy\FormWebThingy.csproj", "{47121273-16F7-4D16-95A5-3CC84CE423B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{AA7FA16F-16ED-4AD5-A542-B482B4918993}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA7FA16F-16ED-4AD5-A542-B482B4918993}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA7FA16F-16ED-4AD5-A542-B482B4918993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47121273-16F7-4D16-95A5-3CC84CE423B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47121273-16F7-4D16-95A5-3CC84CE423B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47121273-16F7-4D16-95A5-3CC84CE423B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47121273-16F7-4D16-95A5-3CC84CE423B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
