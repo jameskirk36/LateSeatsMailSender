@@ -15,10 +15,10 @@ namespace LateSeatsMailSenderTests
 
             mailSender.SendMail(CreateTestJSON(), fakeMailClient);
 
-            Assert.That(fakeMailClient.MailTo, Is.EqualTo("joe@laterooms.com"));
-            Assert.That(fakeMailClient.MailFrom, Is.EqualTo("lateseatalerts@laterooms.com"));
-            Assert.That(fakeMailClient.MailSubject, Is.EqualTo("Your LateSeat Alerts"));
-            Assert.That(fakeMailClient.MailBody, Is.EqualTo("Hi Joe"));
+            Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("joe@laterooms.com"));
+            Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
+            Assert.That(fakeMailClient.MailMessage.Subject, Is.EqualTo("Your LateSeat Alerts"));
+            Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo("Hi Joe"));
         }
 
         private static string CreateTestJSON()

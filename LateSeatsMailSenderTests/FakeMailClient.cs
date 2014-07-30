@@ -1,21 +1,26 @@
-﻿using LateSeatsMailSender;
+﻿using System.Net.Mail;
+using LateSeatsMailSender;
 
 namespace LateSeatsMailSenderTests
 {
     public class FakeMailClient : IMailClient
     {
-        public string MailTo { get; set; }
-        public string MailBody { get; set; }
-        public string MailFrom { get; set; }
-        public object MailSubject { get; set; }
-
+        private MailMessage _mailMessage = null;
+        public MailMessage MailMessage {
+            get
+            {
+                return _mailMessage;
+            }
+            set
+            {
+                
+            } 
+        }
 
         public void SendMail(string mailTo, string mailFrom, string mailSubject, string body)
         {
-            MailTo = mailTo;
-            MailFrom = mailFrom;
-            MailSubject = mailSubject;
-            MailBody = body;
+          
+            _mailMessage = new MailMessage(mailFrom, mailTo, mailSubject, body);
         }
 
     }
