@@ -2,12 +2,6 @@
 
 namespace LateSeatsMailSender
 {
-    public class Watchlist
-    {
-        public string name;
-        public string email;
-        public object[] flights;
-    }
     public class MailSender
     {
         private const string _from = "lateseatalerts@laterooms.com";

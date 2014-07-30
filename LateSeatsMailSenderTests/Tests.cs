@@ -1,5 +1,6 @@
 ﻿using LateSeatsMailSender;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace LateSeatsMailSenderTests
 {
@@ -11,6 +12,7 @@ namespace LateSeatsMailSenderTests
         {
             var fakeMailClient = new FakeMailClient();
             var mailSender = new MailSender();
+
             mailSender.SendMail(CreateTestJSON(), fakeMailClient);
 
             Assert.That(fakeMailClient.MailTo, Is.EqualTo("joe@laterooms.com"));
@@ -25,7 +27,7 @@ namespace LateSeatsMailSenderTests
             {
 	            ""name"": ""joe bloggs"",
 	            ""email"": ""joe@laterooms.com"",
-	            ""flight"": [
+	            ""flights"": [
 		            {
 			            ""departure_airport"" : {
 				            ""code"": ""MIA"",
@@ -44,11 +46,12 @@ namespace LateSeatsMailSenderTests
         }
 
 
-      
-        //[Test]
-        //public void OpenXMLTest()
-        //{
-        //    FormGenerator.GenerateForm();
-        //}
+
+        [Test]
+        public void OpenXMLTest()
+        {
+            var watchlist = JsonConvert.DeserializeObject<Watchlist>(CreateTestJSON());
+            FormGenerator.GenerateForm(watchlist);
+        }
     }
 }
