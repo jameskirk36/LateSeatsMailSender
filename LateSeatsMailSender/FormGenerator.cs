@@ -1,37 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using BookmarkStart = DocumentFormat.OpenXml.Wordprocessing.BookmarkStart;
 
 
 namespace LateSeatsMailSender
 {
     public class FormGenerator
     {
-        public static void GenerateForm(Watchlist watchlist)
+        public static Stream GenerateForm(Watchlist watchlist)
         {
-            string sourceFile = @"C:\temp\Lates_Request_Form_Template.docx";
-            string destinationFile = @"C:\temp\request_form.docx";
+            var stream = ReadResourceIntoMemory();
 
-            if (File.Exists(destinationFile))
-            {
-                File.Delete(destinationFile);
-            }
-            File.Copy(sourceFile, destinationFile);
+            PopulateForm(stream, watchlist);
 
-            PopulateForm(destinationFile, watchlist);
+            EnsureStreamIsReadable(stream);
+
+            return stream;
         }
 
-        private static void PopulateForm(string destinationFile, Watchlist watchlist)
+        private static void EnsureStreamIsReadable(MemoryStream stream)
         {
-            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(destinationFile, true))
+            stream.Position = 0;
+        }
+
+        private static MemoryStream ReadResourceIntoMemory()
+        {
+            return new MemoryStream(Properties.Resources.Lates_Request_Form_Template);
+        }
+
+        private static void PopulateForm(MemoryStream stream, Watchlist watchlist)
+        {
+            using (var wordDoc = WordprocessingDocument.Open(stream, true))
             {
                 PopulateTable(wordDoc, watchlist);
             }

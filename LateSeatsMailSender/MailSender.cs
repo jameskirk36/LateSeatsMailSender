@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Mail;
 using Newtonsoft.Json;
 
@@ -10,11 +11,11 @@ namespace LateSeatsMailSender
         private const string _subject = "Your late seat can be booked!";
 
 
-        public void SendMail(string json, IMailClient mailClient)
+        public void SendMail(string json, IMailClient mailClient, Stream attachment)
         {
             var watchlist = DeserialiseJSON(json);
             var body = CreateBody(watchlist);
-            var mail = CreateMailWithAttachment(watchlist, body);
+            var mail = CreateMailWithAttachment(watchlist, body, attachment);
             
             mailClient.SendMail(mail);
         }
@@ -24,10 +25,10 @@ namespace LateSeatsMailSender
             return JsonConvert.DeserializeObject<Watchlist>(json);
         }
 
-        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body)
+        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body, Stream attachment)
         {
             var mail = new MailMessage(_from, watchlist.email, _subject, body);
-            mail.Attachments.Add(new Attachment(@"C:\temp\request_form.docx"));
+            mail.Attachments.Add(new Attachment(attachment, "request_form.docx"));
             return mail;
         }
 

@@ -21,11 +21,11 @@ The Late Seats Finder Team
 ";
 
         [Test]
-        public void ReceivesJSONSendsEmail()
+        public void GivenSomeJsonSendAnEmail()
         {
             var fakeMailClient = new FakeMailClient();
 
-            Program.SendMailWithAttachment(CreateTestJSON(), fakeMailClient);
+            LateSeatMailAlerter.SendMailWithAttachment(CreateTestJSON(), fakeMailClient);
 
             Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
             Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
@@ -59,16 +59,6 @@ The Late Seats Finder Team
 		            }
 	            ]
             }";
-        }
-
-
-
-        [Test]
-        public void OpenXMLTest()
-        {
-            var watchlist = JsonConvert.DeserializeObject<Watchlist>(CreateTestJSON());
-            
-            FormGenerator.GenerateForm(watchlist);
         }
     }
 }
