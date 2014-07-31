@@ -15,14 +15,8 @@ namespace FormWebThingy.Controllers
 
         public ContentResult Index(string json)
         {
-            var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
-            FormGenerator.GenerateForm(watchlist);
-
-            var mailSender = new MailSender();
             var realMailSender = new SmtpClientWrapper("smtp.laterooms.com", 25);
-
-            mailSender.SendMail(json, realMailSender);
-
+            LateSeatMailAlerter.SendMailWithAttachment(json, realMailSender);
 
             return Content("done", "text/string");
         }

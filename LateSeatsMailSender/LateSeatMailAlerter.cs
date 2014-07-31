@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LateSeatsMailSender
 {
-    class Program
+    public class LateSeatMailAlerter
     {
         private static string ReceiveJSON()
         {
@@ -37,14 +37,19 @@ namespace LateSeatsMailSender
         static void Main(string[] args)
         {
             var json = ReceiveJSON();
+            var realMailSender = new SmtpClientWrapper(args[0], Convert.ToInt32(args[1]));
 
+            SendMailWithAttachment(json, realMailSender);
+        }
+
+        public static void SendMailWithAttachment(string json, IMailClient mailClient)
+        {
             var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
             FormGenerator.GenerateForm(watchlist);
 
             var mailSender = new MailSender();
-            var realMailSender = new SmtpClientWrapper(args[0], Convert.ToInt32(args[1]));
 
-            mailSender.SendMail(json, realMailSender);
+            mailSender.SendMail(json, mailClient);
         }
     }
 }

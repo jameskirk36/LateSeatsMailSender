@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Net.Mail;
 using Newtonsoft.Json;
 
 namespace LateSeatsMailSender
@@ -8,13 +9,19 @@ namespace LateSeatsMailSender
         private const string _from = "lateseatalerts@laterooms.com";
         private const string _subject = "Your late seat can be booked!";
 
+
         public void SendMail(string json, IMailClient mailClient)
         {
-            var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
+            var watchlist = DeserialiseJSON(json);
             var body = CreateBody(watchlist);
             var mail = CreateMailWithAttachment(watchlist, body);
             
             mailClient.SendMail(mail);
+        }
+
+        private static Watchlist DeserialiseJSON(string json)
+        {
+            return JsonConvert.DeserializeObject<Watchlist>(json);
         }
 
         private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body)
@@ -26,7 +33,7 @@ namespace LateSeatsMailSender
 
         private static string CreateBody(Watchlist watchlist)
         {
-            return string.Format(@"
+            return String.Format(@"
 Yo {0}, 
 
 Here are your flight details:

@@ -24,9 +24,8 @@ The Late Seats Finder Team
         public void ReceivesJSONSendsEmail()
         {
             var fakeMailClient = new FakeMailClient();
-            var mailSender = new MailSender();
 
-            mailSender.SendMail(CreateTestJSON(), fakeMailClient);
+            Program.SendMailWithAttachment(CreateTestJSON(), fakeMailClient);
 
             Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
             Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
