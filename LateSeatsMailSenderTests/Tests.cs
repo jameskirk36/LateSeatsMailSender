@@ -12,9 +12,9 @@ Yo james kirk,
 
 Here are your flight details:
 
-Outbound Flight: 31/07/2014 10:00:00 from Manchester Airport
+Outbound Flight: 31 July, 2014 10:00:00 from Manchester Airport
 
-Return Flight: 31/08/2014 10:00:00 from Palma Mallorca Airport
+Return Flight: 31 August, 2014 10:00:00 from Palma Mallorca Airport
 
 Thanks, 
 The Late Seats Finder Team 

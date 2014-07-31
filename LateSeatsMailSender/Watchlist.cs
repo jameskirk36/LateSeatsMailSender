@@ -38,7 +38,7 @@ namespace LateSeatsMailSender
 
         public string DepartureDate
         {
-            get { return departure_date.ToShortDateString(); }
+            get { return departure_date.ToString("dd MMMM, yyyy"); }
             private set { }
         }
 
@@ -56,7 +56,7 @@ namespace LateSeatsMailSender
 
         public string ReturnDate
         {
-            get { return return_date.ToShortDateString(); }
+            get { return return_date.ToString("dd MMMM, yyyy"); }
             private set { }
         }
 
