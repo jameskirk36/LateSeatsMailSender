@@ -1,11 +1,14 @@
-﻿using LateSeatsMailSender;
+﻿using System.Net.Mail;
+using DocumentFormat.OpenXml.Packaging;
+using LateSeatsMailSender;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 
 namespace LateSeatsMailSenderTests
 {
     [TestFixture]
-    public class Tests
+    public class Tests : DocumentWrapper
     {
         private string _body = @"
 Yo james kirk, 
@@ -21,11 +24,11 @@ The Late Seats Finder Team
 ";
 
         [Test]
-        public void GivenSomeJsonSendAnEmail()
+        public void GivenAFlightWatchlistSendAnEmailWithAttachedForm()
         {
             var fakeMailClient = new FakeMailClient();
-
-            LateSeatMailAlerter.SendMailWithAttachment(CreateTestJSON(), fakeMailClient);
+            var json = CreateTestJSON();
+            LateSeatMailAlerter.SendMailWithAttachment(json, fakeMailClient);
 
             Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
             Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
@@ -33,7 +36,30 @@ The Late Seats Finder Team
             Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo(_body));
 
             Assert.True(fakeMailClient.MailMessage.Attachments.Count == 1);
-            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("request_form_31_July.docx"));
+
+            var attachment = fakeMailClient.MailMessage.Attachments[0];
+           CheckAttachment(json, attachment);
+        }
+
+        private void CheckAttachment(string json, Attachment attachment)
+        {
+            var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
+            var flight = watchlist.FirstFlight;
+            Assert.That(attachment.Name, Is.EqualTo("request_form_31_July.docx"));
+            using (var wordDoc = WordprocessingDocument.Open(attachment.ContentStream, true))
+            {
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ReturnTime, 1), flight.ReturnTime);
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ReturnDate, 1), flight.ReturnDate);
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureTime, 1), flight.DepartureTime);
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ArrivalAirport, 1), flight.ArrivalAirport);
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureDate, 1), flight.DepartureDate);
+                CheckMatches(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureAirport, 1), flight.DepartureAirport);
+            }
+        }
+
+        private void CheckMatches(Text cell, string expectedText)
+        {
+            Assert.That(cell.Text, Is.EqualTo(expectedText));
         }
 
         private static string CreateTestJSON()
@@ -60,5 +86,6 @@ The Late Seats Finder Team
 	            ]
             }";
         }
+
     }
 }

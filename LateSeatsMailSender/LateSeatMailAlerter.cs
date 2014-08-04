@@ -8,7 +8,7 @@ namespace LateSeatsMailSender
     public static void SendMailWithAttachment(string json, IMailClient mailClient)
         {
             var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
-            var requestForm = FormGenerator.GenerateForm(watchlist.FirstFlight);
+            var requestForm = new FormGenerator().GenerateForm(watchlist.FirstFlight);
 
             var mailSender = new MailSender();
 

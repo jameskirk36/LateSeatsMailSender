@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CellIndexHelper.cs" />
+    <Compile Include="DocumentWrapper.cs" />
     <Compile Include="FormGenerator.cs" />
     <Compile Include="IMailClient.cs" />
     <Compile Include="MailSender.cs" />

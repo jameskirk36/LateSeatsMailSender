@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 
 namespace LateSeatsMailSender
 {
-    public class FormGenerator
+    public class FormGenerator : DocumentWrapper
     {
-        public static RequestForm GenerateForm(Flight flight)
+        public RequestForm GenerateForm(Flight flight)
         {
             var stream = ReadResourceIntoMemory();
 
@@ -21,24 +20,24 @@ namespace LateSeatsMailSender
             return new RequestForm(formName, stream);
         }
 
-        private static string CreateFormNameFromDepartureDate(Flight flight)
+        private string CreateFormNameFromDepartureDate(Flight flight)
         {
             return String.Format("request_form_{0}_{1}.docx",
                 flight.departure_date.Date.Day,
                 flight.departure_date.ToString("MMMM"));
         }
 
-        private static void EnsureStreamIsReadable(MemoryStream stream)
+        private void EnsureStreamIsReadable(MemoryStream stream)
         {
             stream.Position = 0;
         }
 
-        private static MemoryStream ReadResourceIntoMemory()
+        private MemoryStream ReadResourceIntoMemory()
         {
             return new MemoryStream(Properties.Resources.Lates_Request_Form_Template);
         }
 
-        private static void PopulateForm(MemoryStream stream, Flight flight)
+        private void PopulateForm(MemoryStream stream, Flight flight)
         {
             using (var wordDoc = WordprocessingDocument.Open(stream, true))
             {
@@ -46,7 +45,7 @@ namespace LateSeatsMailSender
             }
         }
 
-        private static void PopulateTable(WordprocessingDocument wordDoc, Flight flight)
+        private void PopulateTable(WordprocessingDocument wordDoc, Flight flight)
         {
             PopulateDepartureDate(wordDoc, flight.DepartureDate);
             PopulateDepartureAirport(wordDoc, flight.DepartureAirport);
@@ -56,58 +55,47 @@ namespace LateSeatsMailSender
             PopulateReturnTime(wordDoc, flight.ReturnTime);
         }
 
-        private static void PopulateReturnTime(WordprocessingDocument wordDoc, string returnTime)
+        private void PopulateReturnTime(WordprocessingDocument wordDoc, string returnTime)
         {
-            ChangeTextInCell(wordDoc, 7, 1, returnTime);
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ReturnTime, 1), returnTime);
         }
 
-        private static void PopulateReturnDate(WordprocessingDocument wordDoc, string returnDate)
+        private void PopulateReturnDate(WordprocessingDocument wordDoc, string returnDate)
         {
-            ChangeTextInCell(wordDoc, 6, 1, returnDate);
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ReturnDate, 1), returnDate);
         }
 
-        private static void PopulateDepartureTime(WordprocessingDocument wordDoc, string departureTime)
+        private void PopulateDepartureTime(WordprocessingDocument wordDoc, string departureTime)
         {
-            ChangeTextInCell(wordDoc, 5, 1, departureTime);
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureTime, 1), departureTime);
         }
 
-        private static void PopulateArrivalAirport(WordprocessingDocument wordDoc, string arrivalAirport)
+        private void PopulateArrivalAirport(WordprocessingDocument wordDoc, string arrivalAirport)
         {
-            ChangeTextInCell(wordDoc, 4, 1, arrivalAirport);
-
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.ArrivalAirport, 1), arrivalAirport);
         }
 
-        private static void PopulateDepartureDate(WordprocessingDocument wordDoc, string departureDate)
+        private void PopulateDepartureDate(WordprocessingDocument wordDoc, string departureDate)
         {
-            ChangeTextInCell(wordDoc, 2, 1, departureDate);
-
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureDate, 1), departureDate);
         }
 
-        private static void PopulateDepartureAirport(WordprocessingDocument wordDoc, string departureAirport)
+        private void PopulateDepartureAirport(WordprocessingDocument wordDoc, string departureAirport)
         {
-            ChangeTextInCell(wordDoc, 3, 1, departureAirport);
+            ChangeText(GetTextInCell(wordDoc, (int)CellIndexHelper.Indices.DepartureAirport, 1), departureAirport);
         }
 
-       private static void ChangeTextInCell(WordprocessingDocument wordDoc, int rowIndex, int colIndex, string txt)
+       private void ChangeText(Text cellText, string txt)
         {
-            Table table = 
-                wordDoc.MainDocumentPart.Document.Body.Elements<Table>().First();
-
-            // Find the second row in the table.
-            TableRow row = table.Elements<TableRow>().ElementAt(rowIndex);
-
-            // Find the third cell in the row.
-            TableCell cell = row.Elements<TableCell>().ElementAt(colIndex);
-
-            // Find the first paragraph in the table cell.
-            Paragraph p = cell.Elements<Paragraph>().First();
-
-            // Find the first run in the paragraph.
-            Run r = p.Elements<Run>().First();
-
-            // Set the text for the run.
-            Text t = r.Elements<Text>().First();
-            t.Text = txt;
+            cellText.Text = txt;
         }
+
+        public int CellIndexForObject(object o)
+        {
+            return 1;
+        }
+       
     }
+
+    
 }

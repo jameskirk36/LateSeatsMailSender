@@ -23,6 +23,7 @@ namespace LateSeatsMailSender
         public string code;
         public string name;
     }
+
     public class Flight
     {
         public Airport departure_airport;
