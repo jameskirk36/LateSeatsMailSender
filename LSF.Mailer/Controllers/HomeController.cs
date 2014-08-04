@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using LateSeatsMailSender;
 using Newtonsoft.Json;
 
-namespace FormWebThingy.Controllers
+namespace LSF.Mailer.Controllers
 {
     public class HomeController : Controller
     {

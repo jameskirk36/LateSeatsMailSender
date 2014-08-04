@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateSeatsMailSender", "Late
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateSeatsMailSenderTests", "LateSeatsMailSenderTests\LateSeatsMailSenderTests.csproj", "{AA7FA16F-16ED-4AD5-A542-B482B4918993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormWebThingy", "FormWebThingy\FormWebThingy.csproj", "{47121273-16F7-4D16-95A5-3CC84CE423B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSF.Mailer", "LSF.Mailer\LSF.Mailer.csproj", "{47121273-16F7-4D16-95A5-3CC84CE423B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
