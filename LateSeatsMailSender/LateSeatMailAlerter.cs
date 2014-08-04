@@ -8,12 +8,11 @@ namespace LateSeatsMailSender
     public static void SendMailWithAttachment(string json, IMailClient mailClient)
         {
             var watchlist = JsonConvert.DeserializeObject<Watchlist>(json);
-            var attachment = FormGenerator.GenerateForm(watchlist);
+            var requestForm = FormGenerator.GenerateForm(watchlist.FirstFlight);
 
             var mailSender = new MailSender();
 
-            mailSender.SendMail(json, mailClient, attachment);
-            attachment.Close();
+            mailSender.SendMail(json, mailClient, requestForm);
         }
     }
 }

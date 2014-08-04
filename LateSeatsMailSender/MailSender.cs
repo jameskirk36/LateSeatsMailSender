@@ -11,11 +11,12 @@ namespace LateSeatsMailSender
         private const string _subject = "Your late seat can be booked!";
 
 
-        public void SendMail(string json, IMailClient mailClient, Stream attachment)
+        public void SendMail(string json, IMailClient mailClient, RequestForm requestForm)
         {
             var watchlist = DeserialiseJSON(json);
             var body = CreateBody(watchlist);
-            var mail = CreateMailWithAttachment(watchlist, body, attachment);
+
+            var mail = CreateMailWithAttachment(watchlist, body, requestForm);
             
             mailClient.SendMail(mail);
         }
@@ -25,10 +26,10 @@ namespace LateSeatsMailSender
             return JsonConvert.DeserializeObject<Watchlist>(json);
         }
 
-        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body, Stream attachment)
+        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body, RequestForm requestForm)
         {
             var mail = new MailMessage(_from, watchlist.email, _subject, body);
-            mail.Attachments.Add(new Attachment(attachment, "request_form.docx"));
+            mail.Attachments.Add(requestForm.CreateAttachment());
             return mail;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -8,15 +9,23 @@ namespace LateSeatsMailSender
 {
     public class FormGenerator
     {
-        public static Stream GenerateForm(Watchlist watchlist)
+        public static RequestForm GenerateForm(Flight flight)
         {
             var stream = ReadResourceIntoMemory();
 
-            PopulateForm(stream, watchlist);
+            PopulateForm(stream, flight);
 
             EnsureStreamIsReadable(stream);
+            var formName = CreateFormNameFromDepartureDate(flight);
 
-            return stream;
+            return new RequestForm(formName, stream);
+        }
+
+        private static string CreateFormNameFromDepartureDate(Flight flight)
+        {
+            return String.Format("request_form_{0}_{1}.docx",
+                flight.departure_date.Date.Day,
+                flight.departure_date.ToString("MMMM"));
         }
 
         private static void EnsureStreamIsReadable(MemoryStream stream)
@@ -29,22 +38,22 @@ namespace LateSeatsMailSender
             return new MemoryStream(Properties.Resources.Lates_Request_Form_Template);
         }
 
-        private static void PopulateForm(MemoryStream stream, Watchlist watchlist)
+        private static void PopulateForm(MemoryStream stream, Flight flight)
         {
             using (var wordDoc = WordprocessingDocument.Open(stream, true))
             {
-                PopulateTable(wordDoc, watchlist);
+                PopulateTable(wordDoc, flight);
             }
         }
 
-        private static void PopulateTable(WordprocessingDocument wordDoc, Watchlist watchlist)
+        private static void PopulateTable(WordprocessingDocument wordDoc, Flight flight)
         {
-            PopulateDepartureDate(wordDoc, watchlist.FirstFlight.DepartureDate);
-            PopulateDepartureAirport(wordDoc, watchlist.FirstFlight.DepartureAirport);
-            PopulateArrivalAirport(wordDoc, watchlist.FirstFlight.ArrivalAirport);
-            PopulateDepartureTime(wordDoc, watchlist.FirstFlight.DepartureTime);
-            PopulateReturnDate(wordDoc, watchlist.FirstFlight.ReturnDate);
-            PopulateReturnTime(wordDoc, watchlist.FirstFlight.ReturnTime);
+            PopulateDepartureDate(wordDoc, flight.DepartureDate);
+            PopulateDepartureAirport(wordDoc, flight.DepartureAirport);
+            PopulateArrivalAirport(wordDoc, flight.ArrivalAirport);
+            PopulateDepartureTime(wordDoc, flight.DepartureTime);
+            PopulateReturnDate(wordDoc, flight.ReturnDate);
+            PopulateReturnTime(wordDoc, flight.ReturnTime);
         }
 
         private static void PopulateReturnTime(WordprocessingDocument wordDoc, string returnTime)

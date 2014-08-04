@@ -69,6 +69,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RequestForm.cs" />
     <Compile Include="SmtpClientWrapper.cs" />
     <Compile Include="Watchlist.cs" />
   </ItemGroup>

@@ -33,7 +33,7 @@ The Late Seats Finder Team
             Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo(_body));
 
             Assert.True(fakeMailClient.MailMessage.Attachments.Count == 1);
-            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("request_form.docx"));
+            Assert.That(fakeMailClient.MailMessage.Attachments[0].Name,Is.EqualTo("request_form_31_July.docx"));
         }
 
         private static string CreateTestJSON()
