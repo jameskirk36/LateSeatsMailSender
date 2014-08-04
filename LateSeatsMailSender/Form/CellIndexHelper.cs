@@ -1,4 +1,4 @@
-﻿namespace LateSeatsMailSender
+﻿namespace LateSeatsMailSender.Form
 {
     public class CellIndexHelper
     {

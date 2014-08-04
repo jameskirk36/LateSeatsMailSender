@@ -1,5 +1,6 @@
 ﻿using System.Net.Mail;
 using LateSeatsMailSender;
+using LateSeatsMailSender.Mail;
 
 namespace LateSeatsMailSenderTests
 {

@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace LateSeatsMailSender
+namespace LateSeatsMailSender.Mail
 {
     public class SmtpClientWrapper : IMailClient
     {

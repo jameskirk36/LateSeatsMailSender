@@ -59,11 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CellIndexHelper.cs" />
-    <Compile Include="DocumentWrapper.cs" />
-    <Compile Include="FormGenerator.cs" />
-    <Compile Include="IMailClient.cs" />
-    <Compile Include="MailSender.cs" />
+    <Compile Include="Form\CellIndexHelper.cs" />
+    <Compile Include="Form\DocumentWrapper.cs" />
+    <Compile Include="Form\FormGenerator.cs" />
+    <Compile Include="Mail\IMailClient.cs" />
+    <Compile Include="Mail\MailSender.cs" />
     <Compile Include="LateSeatMailAlerter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -71,9 +71,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RequestForm.cs" />
-    <Compile Include="SmtpClientWrapper.cs" />
-    <Compile Include="Watchlist.cs" />
+    <Compile Include="Form\RequestForm.cs" />
+    <Compile Include="Mail\SmtpClientWrapper.cs" />
+    <Compile Include="Watchlist\Airport.cs" />
+    <Compile Include="Watchlist\Flight.cs" />
+    <Compile Include="Watchlist\Watchlist.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

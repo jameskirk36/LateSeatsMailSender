@@ -1,6 +1,8 @@
 ﻿using System.Net.Mail;
 using DocumentFormat.OpenXml.Packaging;
 using LateSeatsMailSender;
+using LateSeatsMailSender.Form;
+using LateSeatsMailSender.Watchlist;
 using NUnit.Framework;
 using Newtonsoft.Json;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
@@ -10,7 +12,7 @@ namespace LateSeatsMailSenderTests
     [TestFixture]
     public class Tests : DocumentWrapper
     {
-        private string _body = @"
+        private string _expectedBody = @"
 Yo james kirk, 
 
 Here are your flight details:
@@ -26,19 +28,28 @@ The Late Seats Finder Team
         [Test]
         public void GivenAFlightWatchlistSendAnEmailWithAttachedForm()
         {
-            var fakeMailClient = new FakeMailClient();
-            var json = CreateTestJSON();
-            LateSeatMailAlerter.SendMailWithAttachment(json, fakeMailClient);
+            var mailClient = CreateFakeMailClient();
+            var json = WatchlistJSONWithSingleFlight();
 
-            Assert.That(fakeMailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
-            Assert.That(fakeMailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
-            Assert.That(fakeMailClient.MailMessage.Subject, Is.EqualTo("Your late seat can be booked!"));
-            Assert.That(fakeMailClient.MailMessage.Body, Is.EqualTo(_body));
+            LateSeatMailAlerter.SendMailWithAttachment(json, mailClient);
 
-            Assert.True(fakeMailClient.MailMessage.Attachments.Count == 1);
+            Assert.That(mailClient.MailMessage.To[0].ToString(), Is.EqualTo("james.kirk@laterooms.com"));
+            Assert.That(mailClient.MailMessage.From.ToString(), Is.EqualTo("lateseatalerts@laterooms.com"));
+            Assert.That(mailClient.MailMessage.Subject, Is.EqualTo("Your late seat can be booked!"));
+            Assert.That(mailClient.MailMessage.Body, Is.EqualTo(_expectedBody));
 
-            var attachment = fakeMailClient.MailMessage.Attachments[0];
-           CheckAttachment(json, attachment);
+            CheckAttachments(mailClient.MailMessage.Attachments, json);
+        }
+
+        private void CheckAttachments(AttachmentCollection attachments, string json)
+        {
+            Assert.True(attachments.Count == 1);
+            CheckAttachment(json, attachments[0]);
+        }
+
+        private static FakeMailClient CreateFakeMailClient()
+        {
+            return new FakeMailClient();
         }
 
         private void CheckAttachment(string json, Attachment attachment)
@@ -62,7 +73,7 @@ The Late Seats Finder Team
             Assert.That(cell.Text, Is.EqualTo(expectedText));
         }
 
-        private static string CreateTestJSON()
+        private static string WatchlistJSONWithSingleFlight()
         {
             return @"
             {

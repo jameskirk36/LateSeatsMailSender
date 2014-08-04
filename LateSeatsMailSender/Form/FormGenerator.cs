@@ -2,9 +2,9 @@
 using System.IO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using LateSeatsMailSender.Watchlist;
 
-
-namespace LateSeatsMailSender
+namespace LateSeatsMailSender.Form
 {
     public class FormGenerator : DocumentWrapper
     {

@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace LateSeatsMailSender
+namespace LateSeatsMailSender.Form
 {
     public class DocumentWrapper
     {

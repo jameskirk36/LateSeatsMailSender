@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LateSeatsMailSender;
+using LateSeatsMailSender.Mail;
 using Newtonsoft.Json;
 
 namespace LSF.Mailer.Controllers

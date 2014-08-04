@@ -1,9 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Net.Mail;
+using LateSeatsMailSender.Form;
 using Newtonsoft.Json;
 
-namespace LateSeatsMailSender
+namespace LateSeatsMailSender.Mail
 {
     public class MailSender
     {
@@ -21,19 +21,19 @@ namespace LateSeatsMailSender
             mailClient.SendMail(mail);
         }
 
-        private static Watchlist DeserialiseJSON(string json)
+        private static Watchlist.Watchlist DeserialiseJSON(string json)
         {
-            return JsonConvert.DeserializeObject<Watchlist>(json);
+            return JsonConvert.DeserializeObject<Watchlist.Watchlist>(json);
         }
 
-        private static MailMessage CreateMailWithAttachment(Watchlist watchlist, string body, RequestForm requestForm)
+        private static MailMessage CreateMailWithAttachment(Watchlist.Watchlist watchlist, string body, RequestForm requestForm)
         {
             var mail = new MailMessage(_from, watchlist.email, _subject, body);
             mail.Attachments.Add(requestForm.CreateAttachment());
             return mail;
         }
 
-        private static string CreateBody(Watchlist watchlist)
+        private static string CreateBody(Watchlist.Watchlist watchlist)
         {
             return String.Format(@"
 Yo {0}, 
