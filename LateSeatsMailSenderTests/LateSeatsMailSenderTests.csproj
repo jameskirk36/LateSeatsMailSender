@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -61,6 +62,10 @@
     <ProjectReference Include="..\LateSeatsMailSender\LateSeatsMailSender.csproj">
       <Project>{F5D2C3BF-CC84-44D2-A3F9-7BD5B4ED4D7F}</Project>
       <Name>LateSeatsMailSender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LSF.Mailer\LSF.Mailer.csproj">
+      <Project>{47121273-16F7-4D16-95A5-3CC84CE423B0}</Project>
+      <Name>LSF.Mailer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

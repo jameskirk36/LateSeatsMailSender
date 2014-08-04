@@ -1,5 +1,6 @@
 ﻿using System.Net.Mail;
 using DocumentFormat.OpenXml.Packaging;
+using LSF.Mailer.Controllers;
 using LateSeatsMailSender;
 using LateSeatsMailSender.Form;
 using LateSeatsMailSender.Watchlist;
@@ -96,6 +97,14 @@ The Late Seats Finder Team
 		            }
 	            ]
             }";
+        }
+       
+        [Test]
+        [Ignore("Smoke Test")]
+        public void SmokeTest()
+        {
+            var controller = new HomeController();
+            controller.Index(WatchlistJSONWithSingleFlight());
         }
 
     }
