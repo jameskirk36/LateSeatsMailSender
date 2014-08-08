@@ -7,7 +7,7 @@ namespace LateSeatsMailSender.Watchlist
         public Airport departure_airport;
         public Airport destination_airport;
         public DateTime departure_date;
-        public DateTime return_date;
+        public DateTime arrival_date;
 
         public string DepartureAirport
         {
@@ -17,7 +17,7 @@ namespace LateSeatsMailSender.Watchlist
 
         public string DepartureDate
         {
-            get { return departure_date.ToString("dd MMMM, yyyy"); }
+            get { return arrival_date.ToString("dd MMMM, yyyy"); }
             private set { }
         }
 
@@ -29,19 +29,19 @@ namespace LateSeatsMailSender.Watchlist
 
         public string DepartureTime
         {
-            get { return departure_date.TimeOfDay.ToString(); }
+            get { return arrival_date.TimeOfDay.ToString(); }
             private set { }
         }
 
         public string ReturnDate
         {
-            get { return return_date.ToString("dd MMMM, yyyy"); }
+            get { return departure_date.ToString("dd MMMM, yyyy"); }
             private set { }
         }
 
         public string ReturnTime
         {
-            get { return return_date.TimeOfDay.ToString(); }
+            get { return departure_date.TimeOfDay.ToString(); }
             private set { }
         }
     }

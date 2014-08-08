@@ -20,7 +20,7 @@ Here are your flight details:
 
 Outbound Flight: 31 July, 2014 10:00:00 from Manchester Airport
 
-Return Flight: 31 August, 2014 10:00:00 from Palma Mallorca Airport
+Return Flight: 31 August, 2014 13:30:00 from Palma Mallorca Airport
 
 Thanks, 
 The Late Seats Finder Team 
@@ -90,10 +90,10 @@ The Late Seats Finder Team
 				            ""code"": ""PMI"",
 				            ""name"": ""Palma Mallorca Airport""
 			            },
-			            ""departure_date"" : ""2014-07-31T10:00:00"",
-			            ""arrival_date"" : ""2014-07-31T13:30:00"",
+			            ""departure_date"" : ""2014-08-31T13:30:00"",
+			            ""arrival_date"" : ""2014-07-31T10:00:00"",
 			            ""flight_number"" : ""TOM1234"",
-                        ""return_date"":""2014-08-31T10:00:00"",
+                        ""return_date"":""2014-07-31T10:00:00"",
 		            }
 	            ]
             }";

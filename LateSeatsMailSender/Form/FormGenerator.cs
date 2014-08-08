@@ -23,8 +23,8 @@ namespace LateSeatsMailSender.Form
         private string CreateFormNameFromDepartureDate(Flight flight)
         {
             return String.Format("request_form_{0}_{1}.docx",
-                flight.departure_date.Date.Day,
-                flight.departure_date.ToString("MMMM"));
+                flight.arrival_date.Date.Day,
+                flight.arrival_date.ToString("MMMM"));
         }
 
         private void EnsureStreamIsReadable(MemoryStream stream)
